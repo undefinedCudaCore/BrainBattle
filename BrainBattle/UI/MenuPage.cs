@@ -13,7 +13,7 @@ namespace BrainBattle.UI
             Console.WriteLine();
             Console.Write($"Welcome ");
             Console.BackgroundColor = ConsoleColor.Blue;
-            Console.Write($"{LoginPage.currentUser}");
+            Console.Write($"{GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
             Console.ResetColor();
             Console.WriteLine($". {registration} ");
             Console.WriteLine();

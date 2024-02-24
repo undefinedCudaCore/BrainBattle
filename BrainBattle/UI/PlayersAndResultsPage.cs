@@ -9,6 +9,9 @@ namespace BrainBattle.UI
         public static void PlayerInformationPanel(string quit)
         {
             LoginPage.GreetText();
+            Console.WriteLine();
+            Console.WriteLine($"Player logged in: {GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
+            Console.WriteLine();
             Console.WriteLine(GameData.PlayersAndResults.choosePlayersOrResults);
             Console.WriteLine("------------------------------------------------------");
             Console.WriteLine(GameData.PlayersAndResults.choosePlayers.PadLeft(10));
@@ -47,7 +50,20 @@ namespace BrainBattle.UI
 
         public static void PlayerList(string quit)
         {
-            Console.WriteLine("PLAYERS LIST");
+            LoginPage.GreetText();
+            Console.WriteLine();
+            Console.WriteLine($"Player logged in: {GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
+            Console.WriteLine();
+            Console.WriteLine("PLAYERS:");
+            Console.WriteLine();
+
+            foreach (var userPoinData in LoginPage.playerData)
+            {
+                ConsoleColor consoleColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), GameProcess.RandomPlayerColor(), true);
+                Console.ForegroundColor = consoleColor;
+                Console.WriteLine(GameProcess.MakeFirstLetterUpperCase(userPoinData.Key));
+                Console.ResetColor();
+            }
 
             Console.WriteLine(quit);
             Console.WriteLine();
@@ -69,6 +85,11 @@ namespace BrainBattle.UI
 
         public static void PlayerResults(string quit)
         {
+            LoginPage.GreetText();
+            Console.WriteLine();
+            Console.WriteLine($"Player logged in: {GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
+            Console.WriteLine();
+
             Console.WriteLine("Result list");
 
             Console.WriteLine(quit);

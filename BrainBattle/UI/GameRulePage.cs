@@ -13,7 +13,7 @@ namespace BrainBattle.UI
             Console.WriteLine("GAME RULES".PadLeft(65));
             Console.WriteLine("----------------------------------------------".PadLeft(83));
             Console.WriteLine();
-            Console.WriteLine($"Player: {LoginPage.currentUser}");
+            Console.WriteLine($"Player logged in: {GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
             Console.WriteLine();
             Console.WriteLine("----------------------------------------------".PadLeft(83));
             Console.Write("".PadLeft(51));
