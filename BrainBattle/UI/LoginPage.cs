@@ -103,7 +103,7 @@ namespace BrainBattle.UI
                 { "Mathematics", new List<int>() { 1, 1 } },
                 { "History", new List<int>() { 2, 2 } },
                 { "Wild life", new List<int>() { 3, 3 } },
-                { "Cars industry", new List<int>() { 4, 4 } }
+                { "Cars", new List<int>() { 4, 4 } }
             };
 
             if (String.IsNullOrEmpty(currentUser.Trim()))

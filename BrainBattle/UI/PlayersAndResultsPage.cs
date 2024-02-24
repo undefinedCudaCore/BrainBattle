@@ -66,6 +66,7 @@ namespace BrainBattle.UI
                 Console.ResetColor();
             }
 
+            Console.WriteLine();
             Console.WriteLine(quit);
             Console.WriteLine();
             choosePlayerOrResultList = Console.ReadLine();

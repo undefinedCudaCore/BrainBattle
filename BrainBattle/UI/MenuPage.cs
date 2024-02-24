@@ -63,7 +63,6 @@ namespace BrainBattle.UI
                         break;
                     case "4":
                         Console.Clear();
-                        LoginPage.playerData[LoginPage.currentUser]["History"].Add(++count);
                         GameData.Login.loggedUser = "";
                         GameData.Login.loggedin = false;
                         GameProcess.RunGame();
