@@ -5,6 +5,7 @@ namespace BrainBattle.UI
     internal static class PlayersAndResultsPage
     {
         private static string choosePlayerOrResultList;
+        private static ConsoleColor consoleColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), GameProcess.RandomPlayerColor(), true);
 
         public static void PlayerInformationPanel(string quit)
         {
@@ -59,7 +60,7 @@ namespace BrainBattle.UI
 
             foreach (var userPoinData in LoginPage.playerData)
             {
-                ConsoleColor consoleColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), GameProcess.RandomPlayerColor(), true);
+                consoleColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), GameProcess.RandomPlayerColor(), true);
                 Console.ForegroundColor = consoleColor;
                 Console.WriteLine(GameProcess.MakeFirstLetterUpperCase(userPoinData.Key));
                 Console.ResetColor();
@@ -85,12 +86,50 @@ namespace BrainBattle.UI
 
         public static void PlayerResults(string quit)
         {
+            Dictionary<string, int> playerResult;
+            int count1 = 0;
+            int count2 = 0;
+            string top = "";
+            string star = "";
+
             LoginPage.GreetText();
             Console.WriteLine();
             Console.WriteLine($"Player logged in: {GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
             Console.WriteLine();
 
-            Console.WriteLine("Result list");
+            playerResult = PlayerResults2().OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            foreach (var item in playerResult)
+            {
+                count1++;
+                count2++;
+
+                if (count1 <= 3)
+                {
+                    top = "TOP " + count1 + "_";
+                    star = "*";
+                }
+                if (count1 > 3)
+                {
+                    top = "TOP " + count1 + "_";
+                    star = "";
+                }
+                if (count1 > 10)
+                {
+                    top = "TOP " + count1 + "_";
+                    top = "";
+                }
+
+                consoleColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), GameProcess.RandomPlayerColor(), true);
+                Console.ForegroundColor = consoleColor;
+                Console.Write(top + GameProcess.MakeFirstLetterUpperCase(item.Key + star));
+                Console.Write($" points in total: {item.Value}");
+                Console.ResetColor();
+
+                Console.WriteLine();
+                Console.WriteLine();
+            }
+
 
             Console.WriteLine(quit);
             Console.WriteLine();
@@ -104,27 +143,30 @@ namespace BrainBattle.UI
             }
             else
             {
-                Console.Clear();
                 GameData.PlayersAndResults.choosePlayersOrResults = GameData.PlayersAndResults.choosePlayersOrResultsPressed;
+                Console.Clear();
                 PlayerResults(GameData.GameRules.quitToGameMenuPressed);
             }
         }
 
-        //public static void PlayerResults2()
-        //{
-        //    foreach (var userPoinData in LoginPage.playerData)
-        //    {
-        //        Console.WriteLine(userPoinData.Key);
-        //        foreach (var category in userPoinData.Value)
-        //        {
-        //            Console.WriteLine(category.Key);
-        //            foreach (var point in category.Value)
-        //            {
-        //                Console.WriteLine(point);
+        public static Dictionary<string, int> PlayerResults2()
+        {
+            Dictionary<string, int> result = new Dictionary<string, int>();
+            int pointSum = 0;
 
-        //            }
-        //        }
-        //    }
-        //}
+            foreach (var userPoinData in LoginPage.playerData)
+            {
+                foreach (var category in userPoinData.Value)
+                {
+                    foreach (var point in category.Value)
+                    {
+                        pointSum += point;
+                    }
+                }
+                result.Add(userPoinData.Key, pointSum);
+                pointSum = 0;
+            }
+            return result;
+        }
     }
 }

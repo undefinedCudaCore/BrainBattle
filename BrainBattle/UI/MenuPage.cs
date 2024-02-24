@@ -29,6 +29,7 @@ namespace BrainBattle.UI
 
         public static void Menu(string userRegistrationGreet)
         {
+            int count = 5;
             LoginPage.GreetText();
             PrintMenuItems(userRegistrationGreet);
 
@@ -61,6 +62,8 @@ namespace BrainBattle.UI
                         StartGamePage.StartTheGame(GameData.GameRules.quitToGameMenu);
                         break;
                     case "4":
+                        Console.Clear();
+                        LoginPage.playerData[LoginPage.currentUser]["History"].Add(++count);
                         GameData.Login.loggedUser = "";
                         GameData.Login.loggedin = false;
                         GameProcess.RunGame();
