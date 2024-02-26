@@ -1,4 +1,5 @@
 ﻿using BrainBattle.UI;
+using System.Text;
 
 namespace BrainBattle.Process
 {
@@ -19,23 +20,27 @@ namespace BrainBattle.Process
             }
         }
 
-        public static string MakeFirstLetterUpperCase(string str)
+        public static StringBuilder MakeFirstLetterUpperCase(string str)
         {
             string playerNameSubstring1;
             string playerNameSubstring2;
-            string playerName = "";
+            string playerName = str.Trim();
             string playerSurename;
 
-            if (str.Contains(" "))
+            StringBuilder playerName3 = new StringBuilder();
+
+
+
+            if (playerName.Contains(" "))
             {
-                string[] nameSurname = str.Split(" ");
+                string[] nameSurname = playerName.Split(" ");
 
                 for (int i = 0; i < nameSurname.Length; i++)
                 {
 
                     playerNameSubstring1 = nameSurname[i].Substring(0, 1).ToUpper();
                     playerNameSubstring2 = nameSurname[i].Substring(1, nameSurname[i].Length - 1);
-                    playerName += playerNameSubstring1 + playerNameSubstring2 + " ";
+                    playerName3.Append(playerNameSubstring1 + playerNameSubstring2 + " ");
                 }
 
                 //playerNameSubstring1 = nameSurname[1].Substring(0, 1).ToUpper();
@@ -44,15 +49,14 @@ namespace BrainBattle.Process
 
                 //playerName = playerName + " " + playerSurename;
             }
-            else if (!String.IsNullOrEmpty(str))
+            else if (!String.IsNullOrEmpty(playerName))
             {
-                playerNameSubstring1 = str.Substring(0, 1).ToUpper();
-                playerNameSubstring2 = str.Substring(1, str.Length - 1);
-                playerName = playerNameSubstring1 + playerNameSubstring2;
+                playerNameSubstring1 = playerName.Substring(0, 1).ToUpper();
+                playerNameSubstring2 = playerName.Substring(1, playerName.Length - 1);
+                playerName3.Append(playerNameSubstring1 + playerNameSubstring2);
             }
-            playerName = playerName.Trim();
 
-            return playerName;
+            return playerName3;
         }
 
         internal static string RandomPlayerColor()
@@ -141,18 +145,26 @@ namespace BrainBattle.Process
                 }
                 if (currUser == item.Key)
                 {
-                    currUserPlaceInTopAndScore = top + item.Key + " " + item.Value + star;
+                    currUserPlaceInTopAndScore = top
+                        + GameProcess.MakeFirstLetterUpperCase(item.Key)
+                        + " "
+                        + item.Value + star;
                 }
             }
             return currUserPlaceInTopAndScore;
         }
 
-        public static Dictionary<string, int> DisplayAllQuestionsAndAnswers()
+        public static Dictionary<string, string> DisplayAllQuestionsAndAnswers(string question, string answer)
         {
-            Dictionary<string, int> questionAndAnswersOfOnePlayerForOneGame = new Dictionary<string, int>();
+            Dictionary<string, string> questionAndAnswersOfOnePlayerForOneGame = new Dictionary<string, string>();
 
+            //if (!String.IsNullOrEmpty(question))
+            //{
+            questionAndAnswersOfOnePlayerForOneGame.Add(question, answer);
+            //}
 
             return questionAndAnswersOfOnePlayerForOneGame;
         }
+
     }
 }

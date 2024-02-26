@@ -4,6 +4,8 @@ namespace BrainBattle.UI
 {
     internal class StartGamePage
     {
+        public static Dictionary<string, string> questionAndAnswerData = new Dictionary<string, string>();
+
         private static ConsoleColor consoleColor;
         private static string goBack;
         private static string chosenCategoryNumber;
@@ -125,6 +127,7 @@ namespace BrainBattle.UI
         {
             List<int> randomIndex;
             Dictionary<string, int> playerPoints;
+            Dictionary<string, string> questionAndAnswerListInTheEndOfGame;
             string playersTopAndScore = "";
 
             foreach (var question in questionsAndAnswers)
@@ -197,14 +200,36 @@ namespace BrainBattle.UI
 
                         LoginPage.playerData[LoginPage.currentUser][chosenCategory].Add(questionPoints[question.Key]);
                     }
+                    questionAndAnswerData.Add("Question: " + question.Key, "Answered correctly: " + typedAnswer);
                 }
                 else
                 {
                     Console.WriteLine($"You chose '{GameProcess.MakeFirstLetterUpperCase(typedAnswer)}'. Answer is incorrect! Answer is {question.Value[0]}.");
+                    questionAndAnswerData.Add("Question: " + question.Key, "Wrong answer: " + typedAnswer);
                 }
 
                 Thread.Sleep(3000);
             }
+
+            Console.Clear();
+            LoginPage.GreetText();
+            LoginPage.LoggedPlayerInformation();
+
+            foreach (var asweredQuestrionsToDisplay in questionAndAnswerData)
+            {
+
+                Console.WriteLine("----------------------------------------------".PadLeft(83));
+
+                Console.ForegroundColor = consoleColor;
+                Console.WriteLine(asweredQuestrionsToDisplay.Key);
+                Console.WriteLine();
+                Console.WriteLine(asweredQuestrionsToDisplay.Value);
+                Console.ResetColor();
+
+            }
+            Console.WriteLine("----------------------------------------------".PadLeft(83));
+
+            questionAndAnswerData = new Dictionary<string, string>();
 
             playersTopAndScore = GameProcess.PlayerResultInGameEnd(LoginPage.currentUser);
             Console.WriteLine(playersTopAndScore.PadLeft(120));
