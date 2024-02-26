@@ -130,7 +130,6 @@ namespace BrainBattle.UI
                 Console.WriteLine();
             }
 
-
             Console.WriteLine(quit);
             Console.WriteLine();
             choosePlayerOrResultList = Console.ReadLine();

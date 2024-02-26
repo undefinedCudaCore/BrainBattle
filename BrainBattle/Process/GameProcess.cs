@@ -23,29 +23,34 @@ namespace BrainBattle.Process
         {
             string playerNameSubstring1;
             string playerNameSubstring2;
-            string playerName;
+            string playerName = "";
             string playerSurename;
 
             if (str.Contains(" "))
             {
                 string[] nameSurname = str.Split(" ");
 
-                playerNameSubstring1 = nameSurname[0].Substring(0, 1).ToUpper();
-                playerNameSubstring2 = nameSurname[0].Substring(1, nameSurname[0].Length - 1);
-                playerName = playerNameSubstring1 + playerNameSubstring2;
+                for (int i = 0; i < nameSurname.Length; i++)
+                {
 
-                playerNameSubstring1 = nameSurname[1].Substring(0, 1).ToUpper();
-                playerNameSubstring2 = nameSurname[1].Substring(1, nameSurname[1].Length - 1);
-                playerSurename = playerNameSubstring1 + playerNameSubstring2;
+                    playerNameSubstring1 = nameSurname[i].Substring(0, 1).ToUpper();
+                    playerNameSubstring2 = nameSurname[i].Substring(1, nameSurname[i].Length - 1);
+                    playerName += playerNameSubstring1 + playerNameSubstring2 + " ";
+                }
 
-                playerName = playerName + " " + playerSurename;
+                //playerNameSubstring1 = nameSurname[1].Substring(0, 1).ToUpper();
+                //playerNameSubstring2 = nameSurname[1].Substring(1, nameSurname[1].Length - 1);
+                //playerSurename = playerNameSubstring1 + playerNameSubstring2;
+
+                //playerName = playerName + " " + playerSurename;
             }
-            else
+            else if (!String.IsNullOrEmpty(str))
             {
                 playerNameSubstring1 = str.Substring(0, 1).ToUpper();
                 playerNameSubstring2 = str.Substring(1, str.Length - 1);
                 playerName = playerNameSubstring1 + playerNameSubstring2;
             }
+            playerName = playerName.Trim();
 
             return playerName;
         }
@@ -101,6 +106,53 @@ namespace BrainBattle.Process
             randomIndex = randomIndex.ToArray().Distinct().ToList();
 
             return randomIndex;
+        }
+
+        public static string PlayerResultInGameEnd(string currUser)
+        {
+            Dictionary<string, int> playerResult;
+            int count1 = 0;
+            int count2 = 0;
+            string top = "";
+            string star = "";
+            string currUserPlaceInTopAndScore = "";
+
+            playerResult = PlayersAndResultsPage.PlayerResults2().OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            foreach (var item in playerResult)
+            {
+                count1++;
+                count2++;
+
+                if (count1 <= 3)
+                {
+                    top = "TOP " + count1 + "_";
+                    star = "*";
+                }
+                if (count1 > 3)
+                {
+                    top = "TOP " + count1 + "_";
+                    star = "";
+                }
+                if (count1 > 10)
+                {
+                    top = "TOP " + count1 + "_";
+                    top = "";
+                }
+                if (currUser == item.Key)
+                {
+                    currUserPlaceInTopAndScore = top + item.Key + " " + item.Value + star;
+                }
+            }
+            return currUserPlaceInTopAndScore;
+        }
+
+        public static Dictionary<string, int> DisplayAllQuestionsAndAnswers()
+        {
+            Dictionary<string, int> questionAndAnswersOfOnePlayerForOneGame = new Dictionary<string, int>();
+
+
+            return questionAndAnswersOfOnePlayerForOneGame;
         }
     }
 }

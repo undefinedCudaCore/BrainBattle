@@ -64,7 +64,7 @@ namespace BrainBattle.UI
         public static void EnterToGame()
         {
             wrongCategory = true;
-            int category = int.Parse(chosenCategoryNumber.Trim());
+            //int category = int.Parse(chosenCategoryNumber.Trim());
             count1 = 1;
 
             Console.Clear();
@@ -123,13 +123,18 @@ namespace BrainBattle.UI
 
         public static void GameLogic(Dictionary<string, List<string>> questionsAndAnswers, Dictionary<string, int> questionPoints, string quit)
         {
-            Dictionary<string, int> playerPoints;
             List<int> randomIndex;
+            Dictionary<string, int> playerPoints;
+            string playersTopAndScore = "";
 
             foreach (var question in questionsAndAnswers)
             {
-                int randomAnswerValue = 0;
-                int randomAnswerValueRepetitive = 0;
+                Console.Clear();
+                LoginPage.GreetText();
+                LoginPage.LoggedPlayerInformation();
+
+                //int randomAnswerValue = 0;
+                //int randomAnswerValueRepetitive = 0;
                 string typedAnswer;
                 playerPoints = PlayersAndResultsPage.PlayerResults2().OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
@@ -181,9 +186,11 @@ namespace BrainBattle.UI
                 typedAnswer = Console.ReadLine();
                 typedAnswer = typedAnswer.Trim();
 
-                if (!String.IsNullOrEmpty(typedAnswer) && typedAnswer.ToLower() == question.Value[0].ToLower())
+                if (!String.IsNullOrEmpty(typedAnswer)
+                    && GameProcess.MakeFirstLetterUpperCase(typedAnswer)
+                    == GameProcess.MakeFirstLetterUpperCase(question.Value[0]))
                 {
-                    Console.WriteLine($"You chose {typedAnswer}. Congratulations, your answer is correct!");
+                    Console.WriteLine($"You chose '{typedAnswer}'. Congratulations, your answer is correct!");
 
                     if (questionPoints.ContainsKey(question.Key))
                     {
@@ -193,9 +200,14 @@ namespace BrainBattle.UI
                 }
                 else
                 {
-                    Console.WriteLine($"You chose {typedAnswer}. Answer is incorrect! Answer is {question.Value[0]}.");
+                    Console.WriteLine($"You chose '{GameProcess.MakeFirstLetterUpperCase(typedAnswer)}'. Answer is incorrect! Answer is {question.Value[0]}.");
                 }
+
+                Thread.Sleep(3000);
             }
+
+            playersTopAndScore = GameProcess.PlayerResultInGameEnd(LoginPage.currentUser);
+            Console.WriteLine(playersTopAndScore.PadLeft(120));
 
             Console.WriteLine();
             Console.WriteLine(quit);
@@ -209,7 +221,28 @@ namespace BrainBattle.UI
             else
             {
                 Console.Clear();
-                StartTheGame();
+                AskToPressQKeyToGoBack(quit);
+            }
+        }
+
+        public static void AskToPressQKeyToGoBack(string quit)
+        {
+            LoginPage.GreetText();
+            LoginPage.LoggedPlayerInformation();
+
+            Console.WriteLine();
+            Console.WriteLine(quit);
+            goBack = Console.ReadLine();
+
+            if (!String.IsNullOrEmpty(goBack.Trim()) && goBack.ToLower() == "q")
+            {
+                Console.Clear();
+                MenuPage.Menu(LoginPage.isUserRegistered);
+            }
+            else
+            {
+                Console.Clear();
+                AskToPressQKeyToGoBack(quit);
             }
         }
     }
