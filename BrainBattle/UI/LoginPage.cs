@@ -100,10 +100,10 @@ namespace BrainBattle.UI
             isNullOrEmpty = false;
             Dictionary<string, List<int>> userPointDataByQuestionCategory = new Dictionary<string, List<int>>
             {
-                { "Mathematics", new List<int>() { 1, 1 } },
-                { "History", new List<int>() { 2, 2 } },
-                { "Wild life", new List<int>() { 3, 3 } },
-                { "Cars", new List<int>() { 4, 4 } }
+                { "Mathematics", new List<int>() },
+                { "History", new List<int>() },
+                { "Wild life", new List<int>() },
+                { "Cars", new List<int>() }
             };
 
             if (String.IsNullOrEmpty(currentUser.Trim()))
@@ -137,6 +137,13 @@ namespace BrainBattle.UI
 
                 return playerData;
             }
+        }
+
+        public static void LoggedPlayerInformation()
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Player logged in: {GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
+            Console.WriteLine();
         }
     }
 }

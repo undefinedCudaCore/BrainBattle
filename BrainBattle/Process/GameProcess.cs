@@ -87,5 +87,20 @@ namespace BrainBattle.Process
         //{
         //    LoginPage.loggedUser = retuSerName;
         //    LoginPage.loggedin = retLoggedIn;
+        //}
+
+        public static List<int> RandomIndexFromZeroToFour()
+        {
+            List<int> randomIndex = new List<int>();
+            Random random = new Random();
+
+            for (int i = 0; i < 100; i++)
+            {
+                randomIndex.Add(random.Next(0, 4));
+            }
+            randomIndex = randomIndex.ToArray().Distinct().ToList();
+
+            return randomIndex;
+        }
     }
 }

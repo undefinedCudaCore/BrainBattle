@@ -42,17 +42,17 @@
 
         internal static class QuestionsAndAnswersByCategory
         {
-            internal static Dictionary<string, List<int>> mathematicsQuestionsAndAnswers = new Dictionary<string, List<int>>
+            internal static Dictionary<string, List<string>> mathematicsQuestionsAndAnswers = new Dictionary<string, List<string>>
             {
-                { "What is the highest common factor of the numbers 30 and 132", new List<int>() { 6, 3, 7, 9 } },
-                { "123+4-5+67-89 = ?", new List<int>() { 100, 105, 101, 99 } },
-                { "From the number 0 to the number 1000, the letter “A” appears only in?",  new List<int>() { 1000, 3000, 100, 1050 }},
-                { "If 1=3, 2=3, 3=5, 4=4, and 5=4, what is 6=?", new List<int>() { 3, -3, 6, 9 } },
-                { "Which number is the equivalent to 3^(4)/3^(2)?", new List<int>() { 9, -3, 6, 3 } },
-                { "What is next in the following number series: 256, 289, 324, 361 . . . ?", new List<int>() { 400, 200, 800, 600 } },
+                { "What is the highest common factor of the numbers 30 and 132", new List<string>() { "6", "3", "7", "9" } },
+                { "123+4-5+67-89 = ?", new List<string>() { "100", "105", "101", "99" } },
+                { "From the number 0 to the number 1000, the letter “A” appears only in?",  new List<string>() { "1000", "3000", "100", "1050" }},
+                { "If 1=3, 2=3, 3=5, 4=4, and 5=4, what is 6=?", new List<string>() { "3", "-3", "6", "9" } },
+                { "Which number is the equivalent to 3^(4)/3^(2)?", new List<string>() { "9", "-3", "6", "3" } },
+                { "What is next in the following number series: 256, 289, 324, 361 . . . ?", new List<string>() { "400", "200", "800", "600" } },
                 { "At a Christmas party, everyone shook hands with everyone else. There were a " +
-                    "total of 66 handshakes that happened during the party. How many people were present?", new List<int>() { 12, 16, 20, 9 } },
-                { "How many vertices are present on a cube?", new List<int>() { 8, 6, 10, 14 } }
+                    "total of 66 handshakes that happened during the party. How many people were present?", new List<string>() { "12", "16", "20", "9" } },
+                { "How many vertices are present on a cube?", new List<string>() { "8", "6", "10", "14" } }
             };
 
             internal static Dictionary<string, int> mathematicsQuestionPoints = new Dictionary<string, int>

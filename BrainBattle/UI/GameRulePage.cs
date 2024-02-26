@@ -8,15 +8,11 @@ namespace BrainBattle.UI
         public static void ShowGameRules(string quit)
         {
             LoginPage.GreetText();
+            LoginPage.LoggedPlayerInformation();
 
             Console.WriteLine("----------------------------------------------".PadLeft(83));
             Console.WriteLine("GAME RULES".PadLeft(65));
             Console.WriteLine("----------------------------------------------".PadLeft(83));
-            Console.WriteLine();
-            Console.WriteLine($"Player logged in: {GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
-            Console.WriteLine();
-            Console.WriteLine("----------------------------------------------".PadLeft(83));
-            Console.Write("".PadLeft(51));
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine(GameData.GameRules.rule1);
             Console.ResetColor();

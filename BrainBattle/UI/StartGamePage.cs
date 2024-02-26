@@ -4,13 +4,17 @@ namespace BrainBattle.UI
 {
     internal class StartGamePage
     {
+        private static ConsoleColor consoleColor;
         private static string goBack;
+        private static string chosenCategoryNumber;
         private static string chosenCategory;
         private static bool wrongCategory;
+        private static int count1;
 
-        public static void StartTheGame(string quit)
+        public static void StartTheGame()
         {
             LoginPage.GreetText();
+            LoginPage.LoggedPlayerInformation();
 
             Console.WriteLine("Choose one of four categories to play with:".PadLeft(10));
             Console.WriteLine("----------------------------------------------".PadLeft(83));
@@ -29,27 +33,168 @@ namespace BrainBattle.UI
             Console.WriteLine("Type number and press ENTER:");
             Console.WriteLine();
 
-            chosenCategory = Console.ReadLine();
+            chosenCategoryNumber = Console.ReadLine();
 
-            switch (chosenCategory)
+            switch (chosenCategoryNumber)
             {
                 case "1":
-                    EnterToGame(chosenCategory);
+                    chosenCategory = "Mathematics";
+                    EnterToGame();
                     break;
                 case "2":
-                    EnterToGame(chosenCategory);
+                    chosenCategory = "History";
+                    EnterToGame();
                     break;
                 case "3":
-                    EnterToGame(chosenCategory);
+                    chosenCategory = "Wild life";
+                    EnterToGame();
                     break;
                 case "4":
-                    EnterToGame(chosenCategory);
+                    chosenCategory = "Cars";
+                    EnterToGame();
                     break;
                 default:
                     Console.Clear();
                     wrongCategory = true;
-                    StartTheGame(GameData.GameRules.quitToGameMenuPressed);
+                    StartTheGame();
                     break;
+            }
+        }
+
+        public static void EnterToGame()
+        {
+            wrongCategory = true;
+            int category = int.Parse(chosenCategoryNumber.Trim());
+            count1 = 1;
+
+            Console.Clear();
+            LoginPage.GreetText();
+            LoginPage.LoggedPlayerInformation();
+
+            if (chosenCategoryNumber == "1")
+            {
+                GameLogic(GameData.QuestionsAndAnswersByCategory.mathematicsQuestionsAndAnswers,
+                    GameData.QuestionsAndAnswersByCategory.mathematicsQuestionPoints,
+                    GameData.GameRules.quitToGameMenu);
+            }
+            if (chosenCategoryNumber == "2")
+            {
+                GameLogic(GameData.QuestionsAndAnswersByCategory.historyQuestionsAndAnswers,
+                    GameData.QuestionsAndAnswersByCategory.historyQuestionPoints,
+                    GameData.GameRules.quitToGameMenu);
+            }
+            if (chosenCategoryNumber == "3")
+            {
+                GameLogic(GameData.QuestionsAndAnswersByCategory.wildLifeQuestionsAndAnswers,
+                    GameData.QuestionsAndAnswersByCategory.wildLifeQuestionPoints,
+                    GameData.GameRules.quitToGameMenu);
+            }
+            if (chosenCategoryNumber == "4")
+            {
+                GameLogic(GameData.QuestionsAndAnswersByCategory.carsQuestionsAndAnswers,
+                    GameData.QuestionsAndAnswersByCategory.carsQuestionPoints,
+                    GameData.GameRules.quitToGameMenu);
+            }
+        }
+
+        public static int HowManyQuestionsInList()
+        {
+            int numberOfQuestions = 0;
+
+            if (chosenCategoryNumber == "1")
+            {
+                numberOfQuestions = GameData.QuestionsAndAnswersByCategory.mathematicsQuestionsAndAnswers.Count;
+            }
+            if (chosenCategoryNumber == "2")
+            {
+                numberOfQuestions = GameData.QuestionsAndAnswersByCategory.historyQuestionsAndAnswers.Count;
+            }
+            if (chosenCategoryNumber == "3")
+            {
+                numberOfQuestions = GameData.QuestionsAndAnswersByCategory.wildLifeQuestionsAndAnswers.Count;
+            }
+            if (chosenCategoryNumber == "4")
+            {
+                numberOfQuestions = GameData.QuestionsAndAnswersByCategory.carsQuestionsAndAnswers.Count;
+            }
+
+            return numberOfQuestions;
+        }
+
+        public static void GameLogic(Dictionary<string, List<string>> questionsAndAnswers, Dictionary<string, int> questionPoints, string quit)
+        {
+            Dictionary<string, int> playerPoints;
+            List<int> randomIndex;
+
+            foreach (var question in questionsAndAnswers)
+            {
+                int randomAnswerValue = 0;
+                int randomAnswerValueRepetitive = 0;
+                string typedAnswer;
+                playerPoints = PlayersAndResultsPage.PlayerResults2().OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+                consoleColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), GameProcess.RandomPlayerColor(), true);
+                Console.ForegroundColor = consoleColor;
+
+                Console.WriteLine($"Question {count1} of {HowManyQuestionsInList()}".PadLeft(120));
+                Console.ResetColor();
+
+                foreach (var player in playerPoints)
+                {
+                    if (LoginPage.currentUser == player.Key)
+                    {
+                        Console.WriteLine($"Points: {player.Value}".PadLeft(120));
+                    }
+                }
+
+                Console.WriteLine();
+
+                count1++;
+
+                Console.WriteLine("To select an answer, type an answer and press ENTER.");
+                Console.Write("Question: ");
+
+                Console.ForegroundColor = consoleColor;
+                Console.WriteLine(question.Key);
+                Console.ResetColor();
+
+                Console.WriteLine();
+                Console.WriteLine("----------------------------------------------".PadLeft(83));
+
+                randomIndex = GameProcess.RandomIndexFromZeroToFour();
+                for (int i = 0; i < question.Value.Count; i++)
+                {
+
+                    Console.Write($"\t<< ");
+
+                    Console.ForegroundColor = consoleColor;
+                    Console.Write($"{question.Value[randomIndex[i]]}");
+                    Console.ResetColor();
+
+                    Console.Write($" >>");
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("----------------------------------------------".PadLeft(83));
+                Console.WriteLine();
+
+                typedAnswer = Console.ReadLine();
+                typedAnswer = typedAnswer.Trim();
+
+                if (!String.IsNullOrEmpty(typedAnswer) && typedAnswer.ToLower() == question.Value[0].ToLower())
+                {
+                    Console.WriteLine($"You chose {typedAnswer}. Congratulations, your answer is correct!");
+
+                    if (questionPoints.ContainsKey(question.Key))
+                    {
+
+                        LoginPage.playerData[LoginPage.currentUser][chosenCategory].Add(questionPoints[question.Key]);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"You chose {typedAnswer}. Answer is incorrect! Answer is {question.Value[0]}.");
+                }
             }
 
             Console.WriteLine();
@@ -64,18 +209,8 @@ namespace BrainBattle.UI
             else
             {
                 Console.Clear();
-                StartTheGame(GameData.GameRules.quitToGameMenuPressed);
+                StartTheGame();
             }
-        }
-
-        public static void EnterToGame(string category)
-        {
-            wrongCategory = true;
-
-            Console.Clear();
-            LoginPage.GreetText();
-
-            Console.WriteLine("ENTERED");
         }
     }
 }

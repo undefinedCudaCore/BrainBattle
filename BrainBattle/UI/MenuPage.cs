@@ -59,7 +59,7 @@ namespace BrainBattle.UI
                         PlayersAndResultsPage.PlayerInformationPanel(GameData.GameRules.quitToGameMenu);
                         break;
                     case "3":
-                        StartGamePage.StartTheGame(GameData.GameRules.quitToGameMenu);
+                        StartGamePage.StartTheGame();
                         break;
                     case "4":
                         Console.Clear();

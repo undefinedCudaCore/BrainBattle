@@ -5,14 +5,14 @@ namespace BrainBattle.UI
     internal static class PlayersAndResultsPage
     {
         private static string choosePlayerOrResultList;
-        private static ConsoleColor consoleColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), GameProcess.RandomPlayerColor(), true);
+        private static ConsoleColor consoleColor;
 
         public static void PlayerInformationPanel(string quit)
         {
             LoginPage.GreetText();
-            Console.WriteLine();
-            Console.WriteLine($"Player logged in: {GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
-            Console.WriteLine();
+            LoginPage.LoggedPlayerInformation();
+
+            Console.WriteLine("------------------------------------------------------");
             Console.WriteLine(GameData.PlayersAndResults.choosePlayersOrResults);
             Console.WriteLine("------------------------------------------------------");
             Console.WriteLine(GameData.PlayersAndResults.choosePlayers.PadLeft(10));
@@ -52,9 +52,9 @@ namespace BrainBattle.UI
         public static void PlayerList(string quit)
         {
             LoginPage.GreetText();
-            Console.WriteLine();
-            Console.WriteLine($"Player logged in: {GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
-            Console.WriteLine();
+            LoginPage.LoggedPlayerInformation();
+
+            Console.WriteLine("------------------------------------------------------");
             Console.WriteLine("PLAYERS:");
             Console.WriteLine();
 
@@ -94,10 +94,9 @@ namespace BrainBattle.UI
             string star = "";
 
             LoginPage.GreetText();
-            Console.WriteLine();
-            Console.WriteLine($"Player logged in: {GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser)}");
-            Console.WriteLine();
+            LoginPage.LoggedPlayerInformation();
 
+            Console.WriteLine("------------------------------------------------------");
             playerResult = PlayerResults2().OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
             foreach (var item in playerResult)
