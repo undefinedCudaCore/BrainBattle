@@ -198,7 +198,7 @@ namespace BrainBattle.UI
                     typedAnswer = Console.ReadLine();
                     typedAnswer = typedAnswer.Trim();
                 }
-                else if (!String.IsNullOrEmpty(typedAnswer)
+                if (!String.IsNullOrEmpty(typedAnswer)
                     && GameProcess.MakeFirstLetterUpperCase(typedAnswer)
                     == GameProcess.MakeFirstLetterUpperCase(question.Value[0]))
                 {
