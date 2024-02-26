@@ -1,5 +1,4 @@
 ﻿using BrainBattle.UI;
-using System.Text;
 
 namespace BrainBattle.Process
 {
@@ -20,43 +19,34 @@ namespace BrainBattle.Process
             }
         }
 
-        public static StringBuilder MakeFirstLetterUpperCase(string str)
+        public static string MakeFirstLetterUpperCase(string str)
         {
             string playerNameSubstring1;
             string playerNameSubstring2;
-            string playerName = str.Trim();
+            string playerName = "";
             string playerSurename;
 
-            StringBuilder playerName3 = new StringBuilder();
-
-
-
-            if (playerName.Contains(" "))
+            if (str.Contains(" "))
             {
-                string[] nameSurname = playerName.Split(" ");
+                string[] nameSurname = str.Split(" ");
 
                 for (int i = 0; i < nameSurname.Length; i++)
                 {
 
                     playerNameSubstring1 = nameSurname[i].Substring(0, 1).ToUpper();
                     playerNameSubstring2 = nameSurname[i].Substring(1, nameSurname[i].Length - 1);
-                    playerName3.Append(playerNameSubstring1 + playerNameSubstring2 + " ");
+                    playerName += playerNameSubstring1 + playerNameSubstring2 + " ";
                 }
-
-                //playerNameSubstring1 = nameSurname[1].Substring(0, 1).ToUpper();
-                //playerNameSubstring2 = nameSurname[1].Substring(1, nameSurname[1].Length - 1);
-                //playerSurename = playerNameSubstring1 + playerNameSubstring2;
-
-                //playerName = playerName + " " + playerSurename;
             }
-            else if (!String.IsNullOrEmpty(playerName))
+            else if (!String.IsNullOrEmpty(str))
             {
-                playerNameSubstring1 = playerName.Substring(0, 1).ToUpper();
-                playerNameSubstring2 = playerName.Substring(1, playerName.Length - 1);
-                playerName3.Append(playerNameSubstring1 + playerNameSubstring2);
+                playerNameSubstring1 = str.Substring(0, 1).ToUpper();
+                playerNameSubstring2 = str.Substring(1, str.Length - 1);
+                playerName = playerNameSubstring1 + playerNameSubstring2;
             }
+            playerName = playerName.Trim();
 
-            return playerName3;
+            return playerName;
         }
 
         internal static string RandomPlayerColor()
@@ -82,32 +72,29 @@ namespace BrainBattle.Process
             randomColorIndex = random.Next(0, 12);
             color = randomColorList[randomColorIndex];
 
-            //Console.ForegroundColor
-            //= ConsoleColor.Red;
             return color;
         }
-        //public static void SetLoginValues(string setuSerName, bool setLoggedIn)
-        //{
-        //    LoginPage.loggedUser = setuSerName;
-        //    LoginPage.loggedin = setLoggedIn;
-        //}
 
-        //public static void ResetLoginValues(string retuSerName, bool retLoggedIn)
-        //{
-        //    LoginPage.loggedUser = retuSerName;
-        //    LoginPage.loggedin = retLoggedIn;
-        //}
-
-        public static List<int> RandomIndexFromZeroToFour()
+        public static List<int> RandomIndexFromZeroToFour(int index)
         {
             List<int> randomIndex = new List<int>();
             Random random = new Random();
 
-            for (int i = 0; i < 100; i++)
+            if (index == 0)
             {
-                randomIndex.Add(random.Next(0, 4));
+                for (int i = 0; i < 100; i++)
+                {
+                    randomIndex.Add(random.Next(index, 4));
+                }
+                randomIndex = randomIndex.ToArray().Distinct().ToList();
             }
-            randomIndex = randomIndex.ToArray().Distinct().ToList();
+            if (index == 1)
+            {
+                randomIndex.Add(0);
+                randomIndex.Add(random.Next(1, 4));
+
+                randomIndex = randomIndex.ToArray().Distinct().ToList();
+            }
 
             return randomIndex;
         }
@@ -158,10 +145,7 @@ namespace BrainBattle.Process
         {
             Dictionary<string, string> questionAndAnswersOfOnePlayerForOneGame = new Dictionary<string, string>();
 
-            //if (!String.IsNullOrEmpty(question))
-            //{
             questionAndAnswersOfOnePlayerForOneGame.Add(question, answer);
-            //}
 
             return questionAndAnswersOfOnePlayerForOneGame;
         }

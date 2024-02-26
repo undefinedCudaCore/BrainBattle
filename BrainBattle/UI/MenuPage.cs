@@ -29,7 +29,7 @@ namespace BrainBattle.UI
 
         public static void Menu(string userRegistrationGreet)
         {
-            int count = 5;
+            //int count = 5;
             LoginPage.GreetText();
             PrintMenuItems(userRegistrationGreet);
 

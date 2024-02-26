@@ -127,7 +127,6 @@ namespace BrainBattle.UI
         {
             List<int> randomIndex;
             Dictionary<string, int> playerPoints;
-            Dictionary<string, string> questionAndAnswerListInTheEndOfGame;
             string playersTopAndScore = "";
 
             foreach (var question in questionsAndAnswers)
@@ -136,8 +135,7 @@ namespace BrainBattle.UI
                 LoginPage.GreetText();
                 LoginPage.LoggedPlayerInformation();
 
-                //int randomAnswerValue = 0;
-                //int randomAnswerValueRepetitive = 0;
+                //Display question position of all questions and user total score
                 string typedAnswer;
                 playerPoints = PlayersAndResultsPage.PlayerResults2().OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
@@ -159,7 +157,11 @@ namespace BrainBattle.UI
 
                 count1++;
 
+                //Display question
                 Console.WriteLine("To select an answer, type an answer and press ENTER.");
+                Console.WriteLine("To discard the two incorrect answers type 'd' press ENTER.");
+                Console.WriteLine();
+
                 Console.Write("Question: ");
 
                 Console.ForegroundColor = consoleColor;
@@ -169,11 +171,10 @@ namespace BrainBattle.UI
                 Console.WriteLine();
                 Console.WriteLine("----------------------------------------------".PadLeft(83));
 
-                randomIndex = GameProcess.RandomIndexFromZeroToFour();
+                randomIndex = GameProcess.RandomIndexFromZeroToFour(0);
                 for (int i = 0; i < question.Value.Count; i++)
                 {
-
-                    Console.Write($"\t<< ");
+                    Console.Write($" << ");
 
                     Console.ForegroundColor = consoleColor;
                     Console.Write($"{question.Value[randomIndex[i]]}");
@@ -186,10 +187,18 @@ namespace BrainBattle.UI
                 Console.WriteLine("----------------------------------------------".PadLeft(83));
                 Console.WriteLine();
 
+                //Verify and display selected answer
                 typedAnswer = Console.ReadLine();
                 typedAnswer = typedAnswer.Trim();
 
-                if (!String.IsNullOrEmpty(typedAnswer)
+                if (!String.IsNullOrEmpty(typedAnswer) && typedAnswer.ToLower() == "d")
+                {
+                    ShowFiftyFiftyOfAnswers(questionsAndAnswers, question.Key);
+
+                    typedAnswer = Console.ReadLine();
+                    typedAnswer = typedAnswer.Trim();
+                }
+                else if (!String.IsNullOrEmpty(typedAnswer)
                     && GameProcess.MakeFirstLetterUpperCase(typedAnswer)
                     == GameProcess.MakeFirstLetterUpperCase(question.Value[0]))
                 {
@@ -211,6 +220,7 @@ namespace BrainBattle.UI
                 Thread.Sleep(3000);
             }
 
+            //Display all answered questions and answers of it
             Console.Clear();
             LoginPage.GreetText();
             LoginPage.LoggedPlayerInformation();
@@ -231,9 +241,11 @@ namespace BrainBattle.UI
 
             questionAndAnswerData = new Dictionary<string, string>();
 
+            //Display players total score and place in player top
             playersTopAndScore = GameProcess.PlayerResultInGameEnd(LoginPage.currentUser);
             Console.WriteLine(playersTopAndScore.PadLeft(120));
 
+            //Go back to menu
             Console.WriteLine();
             Console.WriteLine(quit);
             goBack = Console.ReadLine();
@@ -269,6 +281,34 @@ namespace BrainBattle.UI
                 Console.Clear();
                 AskToPressQKeyToGoBack(quit);
             }
+        }
+
+        public static void ShowFiftyFiftyOfAnswers(Dictionary<string, List<string>> questionsAndAnswers, string currentQuestion)
+        {
+            List<int> randomIndex = GameProcess.RandomIndexFromZeroToFour(1);
+
+            Console.WriteLine("-------------------50/50----------------------".PadLeft(83));
+
+            foreach (var question in questionsAndAnswers)
+            {
+                if (question.Key == currentQuestion)
+                {
+
+                    for (int i = 0; i < randomIndex.Count; i++)
+                    {
+                        Console.Write($"   << ");
+
+                        Console.ForegroundColor = consoleColor;
+                        Console.Write($"{question.Value[randomIndex[i]]}");
+                        Console.ResetColor();
+
+                        Console.Write($" >>");
+                    }
+                    Console.WriteLine();
+                    break;
+                }
+            }
+            Console.WriteLine("----------------------------------------------".PadLeft(83));
         }
     }
 }
