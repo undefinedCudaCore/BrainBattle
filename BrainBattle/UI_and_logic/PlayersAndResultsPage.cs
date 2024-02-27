@@ -97,6 +97,8 @@ namespace BrainBattle.UI
             LoginPage.LoggedPlayerInformation();
 
             Console.WriteLine("------------------------------------------------------");
+            Console.WriteLine();
+
             playerResult = PlayerResults2().OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
             foreach (var item in playerResult)
@@ -130,6 +132,7 @@ namespace BrainBattle.UI
                 Console.WriteLine();
             }
 
+            Console.WriteLine("------------------------------------------------------");
             Console.WriteLine(quit);
             Console.WriteLine();
             choosePlayerOrResultList = Console.ReadLine();

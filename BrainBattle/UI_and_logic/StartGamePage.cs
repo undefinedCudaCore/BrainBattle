@@ -197,13 +197,6 @@ namespace BrainBattle.UI
                     }
 
                     Console.Write(questionsToPrint);
-                    //Console.Write($" << ");
-
-                    //Console.ForegroundColor = consoleColor;
-                    //Console.Write($"{question.Value[randomIndex[i]]}");
-                    //Console.ResetColor();
-
-                    //Console.Write($" >>");
                 }
 
                 Console.WriteLine();
@@ -236,7 +229,9 @@ namespace BrainBattle.UI
                     && GameProcess.MakeFirstLetterUpperCase(typedAnswer)
                     == GameProcess.MakeFirstLetterUpperCase(question.Value[0]))
                 {
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"You chose '{typedAnswer}'. Congratulations, your answer is correct!");
+                    Console.ResetColor();
 
                     if (questionPoints.ContainsKey(question.Key))
                     {
@@ -247,8 +242,20 @@ namespace BrainBattle.UI
                 }
                 else
                 {
-                    Console.WriteLine($"You chose '{GameProcess.MakeFirstLetterUpperCase(typedAnswer)}'. Answer is incorrect! Answer is {question.Value[0]}.");
-                    questionAndAnswerData.Add("Question: " + question.Key, "Wrong answer: " + typedAnswer);
+                    if (GameProcess.MakeFirstLetterUpperCase(typedAnswer) == GameProcess.MakeFirstLetterUpperCase(question.Value[1])
+                        || GameProcess.MakeFirstLetterUpperCase(typedAnswer) == GameProcess.MakeFirstLetterUpperCase(question.Value[2])
+                        || GameProcess.MakeFirstLetterUpperCase(typedAnswer) == GameProcess.MakeFirstLetterUpperCase(question.Value[3]))
+                    {
+                        Console.WriteLine($"You chose '{GameProcess.MakeFirstLetterUpperCase(typedAnswer)}'. Answer is incorrect! Answer is {question.Value[0]}.");
+                        questionAndAnswerData.Add("Question: " + question.Key, "Wrong answer: " + typedAnswer);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"Please enter only the meaning from the given choices!!! You get a penalty - 0 points for this question!!!");
+                        Console.ResetColor();
+                        questionAndAnswerData.Add("Question: " + question.Key, "Wrong answer: " + typedAnswer);
+                    }
                 }
 
                 Thread.Sleep(3000);
@@ -341,12 +348,7 @@ namespace BrainBattle.UI
                         }
 
                         Console.Write(questionsToPrint);
-                        //Console.Write($"   << ");
-
-                        //Console.Write($"{question.Value[randomIndex[i]]}");
                         Console.ResetColor();
-
-                        //Console.Write($" >>");
                     }
                     Console.WriteLine();
                     break;
@@ -377,13 +379,8 @@ namespace BrainBattle.UI
 
                     Console.WriteLine(questionsToPrint);
 
-                    //Console.Write($"   << ");
-
-                    //Console.Write($"{question.Value[randomIndex[2]]}");
                     Console.ResetColor();
 
-                    //Console.Write($" >>");
-                    //Console.WriteLine();
                     break;
                 }
             }
