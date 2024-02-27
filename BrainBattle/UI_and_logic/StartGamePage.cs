@@ -201,7 +201,7 @@ namespace BrainBattle.UI
                 //Get 1 of posible answer
                 if (!String.IsNullOrEmpty(typedAnswer) && typedAnswer.ToLower() == "s")
                 {
-                    ShowOneMabyTrueAnswer(questionsAndAnswers, question.Key);
+                    ShowOneMabyCorrectAnswer(questionsAndAnswers, question.Key);
 
                     typedAnswer = Console.ReadLine();
                     typedAnswer = typedAnswer.Trim();
@@ -320,7 +320,7 @@ namespace BrainBattle.UI
             Console.WriteLine("----------------------------------------------".PadLeft(83));
         }
 
-        public static void ShowOneMabyTrueAnswer(Dictionary<string, List<string>> questionsAndAnswers, string currentQuestion)
+        public static void ShowOneMabyCorrectAnswer(Dictionary<string, List<string>> questionsAndAnswers, string currentQuestion)
         {
             List<int> randomIndex = GameProcess.RandomIndexFromZeroToFour(0);
 
