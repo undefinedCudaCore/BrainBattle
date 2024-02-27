@@ -80,6 +80,7 @@ namespace BrainBattle.Process
             List<int> randomIndex = new List<int>();
             Random random = new Random();
 
+            //To get random nubers lis from 0 to 4 - length 4__index needed 0
             if (index == 0)
             {
                 for (int i = 0; i < 100; i++)
@@ -88,11 +89,23 @@ namespace BrainBattle.Process
                 }
                 randomIndex = randomIndex.ToArray().Distinct().ToList();
             }
+
+            //To get random nubers lis from 0 (0 const) to 4 - length 2__index needed 1
             if (index == 1)
             {
                 randomIndex.Add(0);
                 randomIndex.Add(random.Next(1, 4));
 
+                randomIndex = randomIndex.ToArray().Distinct().ToList();
+            }
+
+            //To get random nubers lis from 0 to 8 - length 8__index needed 2
+            if (index == 2)
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    randomIndex.Add(random.Next(0, 8));
+                }
                 randomIndex = randomIndex.ToArray().Distinct().ToList();
             }
 
