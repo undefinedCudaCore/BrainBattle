@@ -186,19 +186,10 @@ namespace BrainBattle.UI
                 Console.WriteLine("----------------------------------------------".PadLeft(83));
                 Console.WriteLine();
 
-                //Verify and display selected answer
                 typedAnswer = Console.ReadLine();
                 typedAnswer = typedAnswer.Trim();
 
-                //Get 50/50 answer
-                if (!String.IsNullOrEmpty(typedAnswer) && typedAnswer.ToLower() == "d")
-                {
-                    ShowFiftyFiftyOfAnswers(questionsAndAnswers, question.Key);
-
-                    typedAnswer = Console.ReadLine();
-                    typedAnswer = typedAnswer.Trim();
-                }
-                //Get 1 of posible answer
+                //Get 1 of posible correct answer
                 if (!String.IsNullOrEmpty(typedAnswer) && typedAnswer.ToLower() == "s")
                 {
                     ShowOneMabyCorrectAnswer(questionsAndAnswers, question.Key);
@@ -207,6 +198,16 @@ namespace BrainBattle.UI
                     typedAnswer = typedAnswer.Trim();
                 }
 
+                //Get 50/50 answer
+                else if (!String.IsNullOrEmpty(typedAnswer) && typedAnswer.ToLower() == "d")
+                {
+                    ShowFiftyFiftyOfAnswers(questionsAndAnswers, question.Key);
+
+                    typedAnswer = Console.ReadLine();
+                    typedAnswer = typedAnswer.Trim();
+                }
+
+                //Verify and display selected answer
                 if (!String.IsNullOrEmpty(typedAnswer)
                     && GameProcess.MakeFirstLetterUpperCase(typedAnswer)
                     == GameProcess.MakeFirstLetterUpperCase(question.Value[0]))
