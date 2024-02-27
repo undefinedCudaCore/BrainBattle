@@ -187,13 +187,23 @@ namespace BrainBattle.UI
                 randomIndex = GameProcess.RandomIndexFromZeroToFour(0);
                 for (int i = 0; i < question.Value.Count; i++)
                 {
-                    Console.Write($" << ");
+                    string questionsToPrint = $"<< {question.Value[randomIndex[i]]} >>";
+                    int questionsLength = questionsToPrint.Length;
+                    questionsLength = (120 - (questionsLength * 4)) / 5;
 
-                    Console.ForegroundColor = consoleColor;
-                    Console.Write($"{question.Value[randomIndex[i]]}");
-                    Console.ResetColor();
+                    for (global::System.Int32 j = 0; j < questionsLength; j++)
+                    {
+                        Console.Write(" ");
+                    }
 
-                    Console.Write($" >>");
+                    Console.Write(questionsToPrint);
+                    //Console.Write($" << ");
+
+                    //Console.ForegroundColor = consoleColor;
+                    //Console.Write($"{question.Value[randomIndex[i]]}");
+                    //Console.ResetColor();
+
+                    //Console.Write($" >>");
                 }
 
                 Console.WriteLine();
@@ -320,13 +330,23 @@ namespace BrainBattle.UI
 
                     for (int i = 0; i < randomIndex.Count; i++)
                     {
-                        Console.Write($"   << ");
+                        string questionsToPrint = $"<< {question.Value[randomIndex[i]]} >>";
+                        int questionsLength = questionsToPrint.Length;
+                        questionsLength = (120 - (questionsLength * 2)) / 3;
 
                         Console.ForegroundColor = consoleColor;
-                        Console.Write($"{question.Value[randomIndex[i]]}");
+                        for (global::System.Int32 j = 0; j < questionsLength; j++)
+                        {
+                            Console.Write(" ");
+                        }
+
+                        Console.Write(questionsToPrint);
+                        //Console.Write($"   << ");
+
+                        //Console.Write($"{question.Value[randomIndex[i]]}");
                         Console.ResetColor();
 
-                        Console.Write($" >>");
+                        //Console.Write($" >>");
                     }
                     Console.WriteLine();
                     break;
@@ -345,14 +365,25 @@ namespace BrainBattle.UI
             {
                 if (question.Key == currentQuestion)
                 {
-                    Console.Write($"   << ");
+                    string questionsToPrint = $"<< {question.Value[randomIndex[2]]} >>";
+                    int questionsLength = questionsToPrint.Length;
+                    questionsLength = (120 - questionsLength) / 2;
 
                     Console.ForegroundColor = consoleColor;
-                    Console.Write($"{question.Value[randomIndex[2]]}");
+                    for (global::System.Int32 j = 0; j < questionsLength; j++)
+                    {
+                        Console.Write(" ");
+                    }
+
+                    Console.WriteLine(questionsToPrint);
+
+                    //Console.Write($"   << ");
+
+                    //Console.Write($"{question.Value[randomIndex[2]]}");
                     Console.ResetColor();
 
-                    Console.Write($" >>");
-                    Console.WriteLine();
+                    //Console.Write($" >>");
+                    //Console.WriteLine();
                     break;
                 }
             }

@@ -10,6 +10,7 @@ namespace BrainBattle.UI
 
         public static void PrintMenuItems(string registration)
         {
+            Console.Clear();
             Console.WriteLine();
             Console.Write($"Welcome ");
             Console.BackgroundColor = ConsoleColor.Blue;
