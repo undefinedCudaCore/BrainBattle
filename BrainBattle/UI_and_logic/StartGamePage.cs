@@ -190,6 +190,7 @@ namespace BrainBattle.UI
                 typedAnswer = Console.ReadLine();
                 typedAnswer = typedAnswer.Trim();
 
+                //Get 50/50 answer
                 if (!String.IsNullOrEmpty(typedAnswer) && typedAnswer.ToLower() == "d")
                 {
                     ShowFiftyFiftyOfAnswers(questionsAndAnswers, question.Key);
@@ -197,6 +198,15 @@ namespace BrainBattle.UI
                     typedAnswer = Console.ReadLine();
                     typedAnswer = typedAnswer.Trim();
                 }
+                //Get 1 of posible answer
+                if (!String.IsNullOrEmpty(typedAnswer) && typedAnswer.ToLower() == "s")
+                {
+                    ShowOneMabyTrueAnswer(questionsAndAnswers, question.Key);
+
+                    typedAnswer = Console.ReadLine();
+                    typedAnswer = typedAnswer.Trim();
+                }
+
                 if (!String.IsNullOrEmpty(typedAnswer)
                     && GameProcess.MakeFirstLetterUpperCase(typedAnswer)
                     == GameProcess.MakeFirstLetterUpperCase(question.Value[0]))
@@ -303,6 +313,30 @@ namespace BrainBattle.UI
 
                         Console.Write($" >>");
                     }
+                    Console.WriteLine();
+                    break;
+                }
+            }
+            Console.WriteLine("----------------------------------------------".PadLeft(83));
+        }
+
+        public static void ShowOneMabyTrueAnswer(Dictionary<string, List<string>> questionsAndAnswers, string currentQuestion)
+        {
+            List<int> randomIndex = GameProcess.RandomIndexFromZeroToFour(0);
+
+            Console.WriteLine("----------------Posible answer----------------".PadLeft(83));
+
+            foreach (var question in questionsAndAnswers)
+            {
+                if (question.Key == currentQuestion)
+                {
+                    Console.Write($"   << ");
+
+                    Console.ForegroundColor = consoleColor;
+                    Console.Write($"{question.Value[randomIndex[2]]}");
+                    Console.ResetColor();
+
+                    Console.Write($" >>");
                     Console.WriteLine();
                     break;
                 }
