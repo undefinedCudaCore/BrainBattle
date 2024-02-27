@@ -11,7 +11,6 @@
             public const string enterCredentials = "Enter your name and last name: ";
             public const string wrongCredentials = "You entered wrong credentials, try again. ";
             public const string awaitForBadChoise = "Game closing, if you want to play again - start game all over again. Wait for 5 seconds.";
-            //public const string gameIsClosingTime = "You entered wrong credentials, try again. ";
             public const string newUserWelcome = "Thank you for your registration.";
             public const string existingUserWelcome = "You are a registered user, and points will be added to your account.";
 

@@ -51,24 +51,6 @@ namespace BrainBattle.UI
 
             firstSelection = Console.ReadLine();
 
-            //if (!String.IsNullOrEmpty(firstSelection) && firstSelection == "1")
-            //{
-            //    Console.WriteLine(GameData.Login.enterCredentials);
-
-            //    currentUser = Console.ReadLine();
-            //}
-            //else if (!String.IsNullOrEmpty(firstSelection) && firstSelection.ToLower() == "q")
-            //{
-            //    Environment.Exit(0);
-            //}
-            //else
-            //{
-            //    Console.WriteLine(GameData.Login.awaitForBadChoise);
-            //    //Console.WriteLine(GameData.Login.gameIsClosingTime);
-            //    Thread.Sleep(5000);
-            //    Environment.Exit(0);
-            //}
-
             switch (firstSelection)
             {
                 case "1":

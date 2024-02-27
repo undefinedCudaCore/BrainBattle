@@ -140,15 +140,5 @@ namespace BrainBattle.Process
             }
             return currUserPlaceInTopAndScore;
         }
-
-        public static Dictionary<string, string> DisplayAllQuestionsAndAnswers(string question, string answer)
-        {
-            Dictionary<string, string> questionAndAnswersOfOnePlayerForOneGame = new Dictionary<string, string>();
-
-            questionAndAnswersOfOnePlayerForOneGame.Add(question, answer);
-
-            return questionAndAnswersOfOnePlayerForOneGame;
-        }
-
     }
 }

@@ -66,7 +66,6 @@ namespace BrainBattle.UI
         public static void EnterToGame()
         {
             wrongCategory = true;
-            //int category = int.Parse(chosenCategoryNumber.Trim());
             count1 = 1;
 
             Console.Clear();
