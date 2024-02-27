@@ -65,6 +65,7 @@ namespace BrainBattle.UI
 
         public static void EnterToGame()
         {
+            Dictionary<string, List<string>> showRandomizedDicQuestionsAndAnswers = new Dictionary<string, List<string>>();
             wrongCategory = true;
             count1 = 1;
 
@@ -74,25 +75,37 @@ namespace BrainBattle.UI
 
             if (chosenCategoryNumber == "1")
             {
-                GameLogic(GameData.QuestionsAndAnswersByCategory.mathematicsQuestionsAndAnswers,
+                showRandomizedDicQuestionsAndAnswers =
+                    GameProcess.GetRandomDictionaryValue(GameData.QuestionsAndAnswersByCategory.mathematicsQuestionsAndAnswers);
+
+                GameLogic(showRandomizedDicQuestionsAndAnswers,
                     GameData.QuestionsAndAnswersByCategory.mathematicsQuestionPoints,
                     GameData.GameRules.quitToGameMenu);
             }
             if (chosenCategoryNumber == "2")
             {
-                GameLogic(GameData.QuestionsAndAnswersByCategory.historyQuestionsAndAnswers,
+                showRandomizedDicQuestionsAndAnswers =
+                    GameProcess.GetRandomDictionaryValue(GameData.QuestionsAndAnswersByCategory.historyQuestionsAndAnswers);
+
+                GameLogic(showRandomizedDicQuestionsAndAnswers,
                     GameData.QuestionsAndAnswersByCategory.historyQuestionPoints,
                     GameData.GameRules.quitToGameMenu);
             }
             if (chosenCategoryNumber == "3")
             {
-                GameLogic(GameData.QuestionsAndAnswersByCategory.wildLifeQuestionsAndAnswers,
+                showRandomizedDicQuestionsAndAnswers =
+                    GameProcess.GetRandomDictionaryValue(GameData.QuestionsAndAnswersByCategory.wildLifeQuestionsAndAnswers);
+
+                GameLogic(showRandomizedDicQuestionsAndAnswers,
                     GameData.QuestionsAndAnswersByCategory.wildLifeQuestionPoints,
                     GameData.GameRules.quitToGameMenu);
             }
             if (chosenCategoryNumber == "4")
             {
-                GameLogic(GameData.QuestionsAndAnswersByCategory.carsQuestionsAndAnswers,
+                showRandomizedDicQuestionsAndAnswers =
+                    GameProcess.GetRandomDictionaryValue(GameData.QuestionsAndAnswersByCategory.carsQuestionsAndAnswers);
+
+                GameLogic(showRandomizedDicQuestionsAndAnswers,
                     GameData.QuestionsAndAnswersByCategory.carsQuestionPoints,
                     GameData.GameRules.quitToGameMenu);
             }

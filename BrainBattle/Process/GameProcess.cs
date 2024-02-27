@@ -153,5 +153,15 @@ namespace BrainBattle.Process
             }
             return currUserPlaceInTopAndScore;
         }
+
+        public static Dictionary<string, List<string>> GetRandomDictionaryValue(Dictionary<string, List<string>> questionsAndAnswersForRandomize)
+        {
+            Dictionary<string, List<string>> randomizedDicQuestionsAndAnswers = new Dictionary<string, List<string>>();
+            Random rand = new Random();
+
+            randomizedDicQuestionsAndAnswers = questionsAndAnswersForRandomize.OrderBy(x => rand.Next()).ToDictionary(item => item.Key, item => item.Value);
+
+            return randomizedDicQuestionsAndAnswers;
+        }
     }
 }
