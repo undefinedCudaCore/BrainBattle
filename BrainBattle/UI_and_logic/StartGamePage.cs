@@ -158,7 +158,8 @@ namespace BrainBattle.UI
 
                 //Display question
                 Console.WriteLine("To select an answer, type an answer and press ENTER.");
-                Console.WriteLine("To discard the two incorrect answers type 'd' press ENTER.");
+                Console.WriteLine("To discard the two incorrect answers, type 'd' and press ENTER.");
+                Console.WriteLine("To get the truly correct type 's', press ENTER.");
                 Console.WriteLine();
 
                 Console.Write("Question: ");
