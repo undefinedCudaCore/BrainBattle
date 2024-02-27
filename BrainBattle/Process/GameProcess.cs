@@ -28,20 +28,21 @@ namespace BrainBattle.Process
 
             if (str.Contains(" "))
             {
+                str = str.Trim();
                 string[] nameSurname = str.Split(" ");
 
                 for (int i = 0; i < nameSurname.Length; i++)
                 {
 
                     playerNameSubstring1 = nameSurname[i].Substring(0, 1).ToUpper();
-                    playerNameSubstring2 = nameSurname[i].Substring(1, nameSurname[i].Length - 1);
+                    playerNameSubstring2 = nameSurname[i].Substring(1, nameSurname[i].Length - 1).ToLower();
                     playerName += playerNameSubstring1 + playerNameSubstring2 + " ";
                 }
             }
             else if (!String.IsNullOrEmpty(str))
             {
                 playerNameSubstring1 = str.Substring(0, 1).ToUpper();
-                playerNameSubstring2 = str.Substring(1, str.Length - 1);
+                playerNameSubstring2 = str.Substring(1, str.Length - 1).ToLower();
                 playerName = playerNameSubstring1 + playerNameSubstring2;
             }
             playerName = playerName.Trim();

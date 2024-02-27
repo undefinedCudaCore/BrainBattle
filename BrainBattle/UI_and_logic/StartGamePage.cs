@@ -159,7 +159,7 @@ namespace BrainBattle.UI
 
                 foreach (var player in playerPoints)
                 {
-                    if (LoginPage.currentUser == player.Key)
+                    if (GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser) == player.Key)
                     {
                         Console.WriteLine($"Points: {player.Value}".PadLeft(120));
                     }
@@ -230,8 +230,8 @@ namespace BrainBattle.UI
 
                     if (questionPoints.ContainsKey(question.Key))
                     {
-
-                        LoginPage.playerData[LoginPage.currentUser][chosenCategory].Add(questionPoints[question.Key]);
+                        string currentUserNameOptimization = GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser);
+                        LoginPage.playerData[currentUserNameOptimization][chosenCategory].Add(questionPoints[question.Key]);
                     }
                     questionAndAnswerData.Add("Question: " + question.Key, "Answered correctly: " + typedAnswer);
                 }
@@ -266,7 +266,7 @@ namespace BrainBattle.UI
             questionAndAnswerData = new Dictionary<string, string>();
 
             //Display players total score and place in player top
-            playersTopAndScore = GameProcess.PlayerResultInGameEnd(LoginPage.currentUser);
+            playersTopAndScore = GameProcess.PlayerResultInGameEnd(GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser));
             Console.WriteLine(playersTopAndScore.PadLeft(120));
 
             //Go back to menu

@@ -4,9 +4,9 @@ namespace BrainBattle.UI
 {
     internal class GameRulePage
     {
-        private static string goBack;
         public static void ShowGameRules(string quit)
         {
+            string goBack;
             LoginPage.GreetText();
             LoginPage.LoggedPlayerInformation();
 

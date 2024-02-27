@@ -96,10 +96,11 @@ namespace BrainBattle.UI
             }
             else if (!String.IsNullOrEmpty(currentUser.Trim()))
             {
-                GameData.Login.loggedUser = currentUser;
+                string currentUserNameOptimization = GameProcess.MakeFirstLetterUpperCase(currentUser);
+                GameData.Login.loggedUser = currentUserNameOptimization;
                 GameData.Login.loggedin = true;
 
-                bool addUser = playerData.TryAdd(currentUser.ToLower(), userPointDataByQuestionCategory);
+                bool addUser = playerData.TryAdd(currentUserNameOptimization, userPointDataByQuestionCategory);
                 if (!addUser)
                 {
                     isUserRegistered = GameData.Login.existingUserWelcome;
