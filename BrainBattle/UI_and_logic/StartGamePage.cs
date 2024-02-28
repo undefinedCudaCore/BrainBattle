@@ -75,6 +75,7 @@ namespace BrainBattle.UI
 
             if (chosenCategoryNumber == "1")
             {
+                Console.Clear();
                 showRandomizedDicQuestionsAndAnswers =
                     GameProcess.GetRandomDictionaryValue(GameData.QuestionsAndAnswersByCategory.mathematicsQuestionsAndAnswers);
 
@@ -84,6 +85,7 @@ namespace BrainBattle.UI
             }
             if (chosenCategoryNumber == "2")
             {
+                Console.Clear();
                 showRandomizedDicQuestionsAndAnswers =
                     GameProcess.GetRandomDictionaryValue(GameData.QuestionsAndAnswersByCategory.historyQuestionsAndAnswers);
 
@@ -93,6 +95,7 @@ namespace BrainBattle.UI
             }
             if (chosenCategoryNumber == "3")
             {
+                Console.Clear();
                 showRandomizedDicQuestionsAndAnswers =
                     GameProcess.GetRandomDictionaryValue(GameData.QuestionsAndAnswersByCategory.wildLifeQuestionsAndAnswers);
 
@@ -102,6 +105,7 @@ namespace BrainBattle.UI
             }
             if (chosenCategoryNumber == "4")
             {
+                Console.Clear();
                 showRandomizedDicQuestionsAndAnswers =
                     GameProcess.GetRandomDictionaryValue(GameData.QuestionsAndAnswersByCategory.carsQuestionsAndAnswers);
 
@@ -261,26 +265,7 @@ namespace BrainBattle.UI
                 Thread.Sleep(3000);
             }
 
-            //Display all answered questions and answers of it
-            Console.Clear();
-            LoginPage.GreetText();
-            LoginPage.LoggedPlayerInformation();
-
-            foreach (var asweredQuestrionsToDisplay in questionAndAnswerData)
-            {
-
-                Console.WriteLine("----------------------------------------------".PadLeft(83));
-
-                Console.ForegroundColor = consoleColor;
-                Console.WriteLine(asweredQuestrionsToDisplay.Key);
-                Console.WriteLine();
-                Console.WriteLine(asweredQuestrionsToDisplay.Value);
-                Console.ResetColor();
-
-            }
-            Console.WriteLine("----------------------------------------------".PadLeft(83));
-
-            questionAndAnswerData = new Dictionary<string, string>();
+            //---------------------
 
             //Display players total score and place in player top
             playersTopAndScore = GameProcess.PlayerResultInGameEnd(GameProcess.MakeFirstLetterUpperCase(LoginPage.currentUser));
@@ -385,6 +370,30 @@ namespace BrainBattle.UI
                 }
             }
             Console.WriteLine("----------------------------------------------".PadLeft(83));
+        }
+
+        public static void DisplayAllAnsweredQuestionsAndAnswersOfIt()
+        {
+            //Display all answered questions and answers of it
+            Console.Clear();
+            LoginPage.GreetText();
+            LoginPage.LoggedPlayerInformation();
+
+            foreach (var asweredQuestrionsToDisplay in questionAndAnswerData)
+            {
+
+                Console.WriteLine("----------------------------------------------".PadLeft(83));
+
+                Console.ForegroundColor = consoleColor;
+                Console.WriteLine(asweredQuestrionsToDisplay.Key);
+                Console.WriteLine();
+                Console.WriteLine(asweredQuestrionsToDisplay.Value);
+                Console.ResetColor();
+
+            }
+            Console.WriteLine("----------------------------------------------".PadLeft(83));
+
+            questionAndAnswerData = new Dictionary<string, string>();
         }
     }
 }

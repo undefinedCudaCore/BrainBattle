@@ -25,11 +25,24 @@ namespace BrainBattle.Process
             string playerNameSubstring2;
             string playerName = "";
             string playerSurename;
+            string simbolForSplit = " ";
+            string simbolForSplitLengthCheck = "";
 
-            if (str.Contains(" "))
+
+            for (int i = 0; i < 30; i++)
+            {
+                simbolForSplitLengthCheck += " ";
+
+                if (str.Contains(simbolForSplitLengthCheck))
+                {
+                    simbolForSplit = simbolForSplitLengthCheck;
+                }
+            }
+
+            if (str.Contains(simbolForSplit))
             {
                 str = str.Trim();
-                string[] nameSurname = str.Split(" ");
+                string[] nameSurname = str.Split(simbolForSplit);
 
                 for (int i = 0; i < nameSurname.Length; i++)
                 {
@@ -115,6 +128,11 @@ namespace BrainBattle.Process
 
         public static string PlayerResultInGameEnd(string currUser)
         {
+            Console.Clear();
+
+            //Display all answered questions and answers of it
+            StartGamePage.DisplayAllAnsweredQuestionsAndAnswersOfIt();
+
             Dictionary<string, int> playerResult;
             int count1 = 0;
             int count2 = 0;
